@@ -1,0 +1,32 @@
+name: krew-plugin-test
+description: Test your kubectl plugin
+author: Kazuki Suda <kazuki.suda@gmail.com>
+inputs:
+  command:
+    description: Command used to test your kubectl plugin
+    required: true
+  plugin:
+    description: Plugin name to use
+    required: false
+  archive:
+    description: File path to be forced downloads to use
+    required: false
+  manifest:
+    description: File path of plugin manifest
+    required: false
+  manifest_url:
+    description: URL of plugin manifest file
+    required: false
+runs:
+  using: composite
+  steps:
+  - run: $GITHUB_ACTION_PATH/../setup-krew/setup-krew.sh
+    shell: bash
+  - run: $GITHUB_ACTION_PATH/krew-plugin-test.sh
+    shell: bash
+    env:
+      COMMAND: "${{ inputs.command }}"
+      PLUGIN: "${{ inputs.plugin }}"
+      ARCHIVE: "${{ inputs.archive }}"
+      MANIFEST: "${{ inputs.manifest }}"
+      MANIFEST_URL: "${{ inputs.manifest_url }}"
