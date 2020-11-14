@@ -1,9 +1,43 @@
 name: krew-release
 description: Bump version of your kubectl plugin in krew-index repo
 author: Kazuki Suda <kazuki.suda@gmail.com>
+inputs:
+  token:
+    description: `repo` scoped Personal Access Token (PAT).
+    required: true
+  manifest:
+    description: The file path of the plugin manifest.
+    required: true
+  version:
+    descripion: The version of the plugin. If you use the git tag as the version, you can specify `github.GITHUB_REF` directly.
+    required: true
+  committer_name:
+    description: The committer name.
+    required: true
+  committer_email:
+    description: The committer email address.
+    required: true
+  author_name:
+    description: The author name. Defaults to the committer name.
+    required: false
+  author_email:
+    description: The author email address. Defaults to the committer email address.
+    required: false
+  upstream:
+    description: The git upstream repository where a Pull Request is created.
+    required: false
+    default: https://github.com/kubernetes-sigs/krew-index.git
 runs:
   using: composite
   steps:
   - run: $GITHUB_ACTION_PATH/krew-release.sh
     shell: bash
-
+    env:
+      TOKEN: "${{ inputs.token }}"
+      MANIFEST: "${{ inputs.manifest }}"
+      VERSION: "${{ inputs.version }}"
+      COMMITTER_NAME: "${{ inputs.committer_name }}"
+      COMMITTER_EMAIL: "${{ inputs.committer_email }}"
+      AUTHOR_NAME: "${{ inputs.author_name }}"
+      AUTHOR_EMAIL: "${{ inputs.author_email }}"
+      UPSTREAM: "${{ inputs.upstream }}"
