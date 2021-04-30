@@ -1,0 +1,21 @@
+name: krew-plugin-test
+
+on:
+  push:
+    branches: [master]
+    paths: ["krew-plugin-test/**"]
+    paths_ignore: ["**.md"]
+  pull_request:
+    types: [opened, synchronize]
+    paths: ["krew-plugin-test/**"]
+    paths_ignore: ["**.md"]
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: ./krew-plugin-test
+      with:
+        manifest_url: https://raw.githubusercontent.com/kubernetes-sigs/krew-index/master/plugins/open-svc.yaml
+        command: kubectl open-svc --help

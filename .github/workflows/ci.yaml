@@ -14,17 +14,3 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - run: make lint
-  setup-krew:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - uses: ./setup-krew
-    - run: kubectl krew version
-  krew-plugin-test:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - uses: ./krew-plugin-test
-      with:
-        manifest_url: https://raw.githubusercontent.com/kubernetes-sigs/krew-index/master/plugins/open-svc.yaml
-        command: kubectl open-svc --help
