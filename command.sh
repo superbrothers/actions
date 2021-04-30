@@ -16,4 +16,11 @@ function exec_command() {
   echoinfo "$ $*"
   "$@"
 }
+
+function get_remote_url_with_token() {
+  local remote="$1"
+  local token="$2"
+
+  git remote get-url "$remote" | sed -e "s#https://#https://x-access-token:${token}@#"
+}
 # vim: ai ts=2 sw=2 et sts=2 ft=sh

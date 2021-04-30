@@ -1,0 +1,40 @@
+name: krew-plugin-release
+
+on:
+  push:
+    branches: [master]
+    paths: ["krew-plugin-release/**"]
+    paths_ignore: ["**.md"]
+  pull_request:
+    types: [opened, synchronize]
+    paths: ["krew-plugin-release/**"]
+    paths_ignore: ["**.md"]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - run: make lint
+  run:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/checkout@v2
+      with:
+        repository: superbrothers-sandbox/krew-index
+        path: krew-index
+    - run: |
+        sed -i "s#superbrothers#hello#" krew-index/plugins/open-svc.yaml
+        git --no-pager diff
+    - id: get_unixtime
+      run: echo ::set-output name=unixtime::$(date +%s)
+    - uses: ./krew-plugin-release
+      with:
+        token: ${{ secrets.ROBOT_PAT }}
+        plugin_name: open-svc
+        plugin_version: v0.0.0-${{ steps.get_unixtime.outputs.unixtime }}
+        manifest_path: krew-index/plugins/open-svc.yaml
+        git_author_name: superbrothers-robot
+        git_author_email: superbrothers-robot@users.noreply.github.com
+        krew_index_repo: superbrothers-sandbox/krew-index
