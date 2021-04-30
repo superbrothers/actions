@@ -3,6 +3,7 @@
 set -e -o pipefail; [[ -n "$DEBUG" ]] && set -x
 
 SCRIPT_ROOT="$(cd "$(dirname "$0")"; pwd)"
+# shellcheck source=command.sh
 source "${SCRIPT_ROOT}/../command.sh"
 
 if [[ -z "$COMMAND" ]]; then

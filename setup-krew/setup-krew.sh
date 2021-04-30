@@ -3,6 +3,7 @@
 set -e -o pipefail
 
 SCRIPT_ROOT="$(cd "$(dirname "$0")"; pwd)"
+# shellcheck source=command.sh
 source "${SCRIPT_ROOT}/../command.sh"
 
 if ! which kubectl >/dev/null 2>&1; then
