@@ -13,8 +13,7 @@ function echowarning() {
 }
 
 function exec_command() {
-  echo -e "\u001b[93;5;6m$*\033[0m"
-  echoinfo "$ $*"
+  echo -e "\u001b[93;5;6m$ $*\033[0m"
   "$@"
 }
 
