@@ -28,3 +28,19 @@ steps:
 ```
 
 See [action.yml](./krew-plugin-test/action.yml) for inputs.
+
+## krew-plugin-release
+
+This action creates a pull request to krew-index repo for releasing your kubectl plugin.
+
+```yaml
+- uses: superbrothers/actions/krew-plugin-release@master
+  with:
+    token: ${{ secrets.PAT }}
+    plugin_name: open-svc
+    manifest_path: ./dist/open-svc.yaml
+    git_author_name: Kazuki Suda
+    git_author_email: kazuki.suda@gmail.com
+```
+
+See [action.yml](./krew-plugin-release/action.yml) for inputs.

@@ -1,0 +1,40 @@
+name: krew-plugin-release
+description: Create a Pull request for releasing your kubectl plugin
+author: Kazuki Suda <kazuki.suda@gmail.com>
+inputs:
+  token:
+    description: Personal Access Token which has "read:discussion, read:org, repo" scope
+    required: true
+  plugin_name:
+    description: The name of kubectl plugin
+    required: true
+  plugin_version:
+    description: The version of kubectl plugin. Defaults to the git tag on $GITHUB_WORKSPACE.
+    required: false
+  manifest_path:
+    description: File path of plugin manifest
+    required: true
+  git_author_name:
+    description: The author name of git author
+    required: true
+  git_author_email:
+    description: The email of git author. If you create a pull request for kubernets-sigs/krew-index, it must be the email address you used when you signed up for CNCF CLA.
+    required: true
+  krew_index_repo:
+    descrption: Repository of krew plugin index
+    required: false
+    default: kubernetes-sigs/krew-index
+
+runs:
+  using: composite
+  steps:
+  - run: $GITHUB_ACTION_PATH/krew-plugin-release.sh
+    shell: bash
+    env:
+      GITHUB_TOKEN: "${{ inputs.token }}"
+      PLUGIN_NAME: "${{ inputs.plugin_name }}"
+      PLUGIN_VERSION: "${{ inputs.plugin_version }}"
+      MANIFEST_PATH: "${{ inputs.manifest_path }}"
+      GIT_AUTHOR_NAME: "${{ inputs.git_author_name }}"
+      GIT_AUTHOR_EMAIL: "${{ inputs.git_author_email }}"
+      KREW_INDEX_REPO: "${{ inputs.krew_index_repo }}"
