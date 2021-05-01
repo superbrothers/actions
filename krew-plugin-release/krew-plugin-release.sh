@@ -20,11 +20,13 @@ cd "$(mktemp -d)"
 echoinfo "Create a fork of $KREW_INDEX_REPO and clone it"
 exec_command gh repo fork "$KREW_INDEX_REPO" --clone --remote
 exec_command cd krew-index
-exec_command git remote remove upstream
 
 branch_name="${PLUGIN_NAME}-${PLUGIN_VERSION}"
 echoinfo "Switch to branch ${branch_name}"
-exec_command git checkout -b "$branch_name"
+exec_command git checkout -b "$branch_name" upstream/master
+
+echoinfo "Remove the remote 'upstream'"
+exec_command git remote remove upstream
 
 echoinfo "Copy the manifest file"
 exec_command cp "${GITHUB_WORKSPACE}/${MANIFEST_PATH}" plugins/
