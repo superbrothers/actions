@@ -3,7 +3,7 @@ description: Create a Pull request for releasing your kubectl plugin
 author: Kazuki Suda <kazuki.suda@gmail.com>
 inputs:
   token:
-    description: Personal Access Token which has "read:discussion, read:org, repo" scope
+    description: Personal Access Token which has "read:discussion, read:org, repo, workflow" scope
     required: true
   plugin_name:
     description: The name of kubectl plugin
