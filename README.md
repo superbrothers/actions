@@ -37,7 +37,6 @@ This action creates a pull request to krew-index repo for releasing your kubectl
 - uses: superbrothers/actions/krew-plugin-release@master
   with:
     token: ${{ secrets.PAT }}
-    plugin_name: open-svc
     manifest_path: ./dist/open-svc.yaml
     git_author_name: Kazuki Suda
     git_author_email: kazuki.suda@gmail.com
