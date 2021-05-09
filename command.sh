@@ -23,4 +23,13 @@ function get_remote_url_with_token() {
 
   git remote get-url "$remote" | sed -e "s#https://#https://x-access-token:${token}@#"
 }
+
+function yaml2json() {
+  if ! which python3 >/dev/null 2>&1; then
+    echo "$0 requires python3" >&2
+    exit 1
+  fi
+
+  cat | python3 -c 'import sys, yaml, json; y=yaml.safe_load(sys.stdin.read()); print(json.dumps(y))'
+}
 # vim: ai ts=2 sw=2 et sts=2 ft=sh

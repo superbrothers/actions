@@ -5,9 +5,6 @@ inputs:
   token:
     description: Personal Access Token which has "read:discussion, read:org, repo, workflow" scope
     required: true
-  plugin_name:
-    description: The name of kubectl plugin
-    required: true
   plugin_version:
     description: The version of kubectl plugin. Defaults to the git tag on $GITHUB_WORKSPACE.
     required: false
@@ -32,7 +29,6 @@ runs:
     shell: bash
     env:
       GITHUB_TOKEN: "${{ inputs.token }}"
-      PLUGIN_NAME: "${{ inputs.plugin_name }}"
       PLUGIN_VERSION: "${{ inputs.plugin_version }}"
       MANIFEST_PATH: "${{ inputs.manifest_path }}"
       GIT_AUTHOR_NAME: "${{ inputs.git_author_name }}"
